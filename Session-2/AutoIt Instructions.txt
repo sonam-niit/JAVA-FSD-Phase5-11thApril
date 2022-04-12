@@ -1,0 +1,80 @@
+AutoIt to upload Files Automatically
+----------------------------------------
+
+download AutoIT
+
+https://www.autoitscript.com/site/autoit/downloads/
+
+Install the same with default instruction
+
+***** To write a script ************
+
+open C:\Program Files (x86)\AutoIt3\SciTE and double click on SciTE.exe
+
+which will open editor where you can create a script fot automation
+
+
+************ to write steps open AutoIt V3 Window*************
+also open the site where you want to upload a file
+so you can click on upload button
+after that drag your finder tool to the filename part so you can see value of Title class and instance
+
+according to that create code in scite.exe
+
+as mentioned below
+
+ControlFocus("Open","","Edit1")
+ControlSetText("Open","","Edit1","D:\Sonam Data\personal\CV\SonamCV.doc")
+ControlClick("Open","","Button1")
+
+
+**** in set text add your CV or any other pdf file *****
+
+once this is completed 
+save the file at any location with .au3 extention
+
+********* convert it to .exe ***************
+
+open that location
+
+right click on your .au3 file and compile it to exe (according to os bit)
+
+you can see .exe file which is the script we will run using selenium driver
+
+******** Create a JAVA class ***************
+
+package com.simplilearn;
+
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+public class AutoI3FileUpload {
+
+	public static void main(String[] args) throws InterruptedException,IOException {
+		
+		System.setProperty("webdriver.chrome.driver", "D:\\Sonam Data\\Java-Phase5-11thApril\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+        driver.get("https://www.shine.com/registration/");
+        
+        WebElement name = driver.findElement(By.id("id_name"));
+        name.sendKeys("sonam soni");
+        
+        WebElement upload = driver.findElement(By.id("id_file"));
+        JavascriptExecutor executor=(JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click()", upload);
+        
+        Thread.sleep(5000);
+        
+        Runtime.getRuntime().exec("D:\\screenshot\\fileUpload.exe");
+        // here you need to add your exe file location
+	}
+}
+
+************** Run the same and check whether you are able to upload the CV or not *************
+
