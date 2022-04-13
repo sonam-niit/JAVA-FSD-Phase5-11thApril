@@ -1,0 +1,173 @@
+Create Maven Project
+--------------------------
+open pom.xml and add following dependencies
+
+Selenium java
+Test NG
+
+also add below mentioned plugins
+
+maven compiler plugin
+maven surefire plugin
+***********************************************
+<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.1.3</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M6</version>
+			</plugin>
+		</plugins>
+	</build>
+
+***********************************************
+
+--------------------------------------------------
+right click project > maven > maven update
+--------------------------------------------------
+
+right click on test folder > create new TestNG class
+
+select all required methods and finish
+
+update the code execute the test case
+****************************************************
+package com.simplilearn.testng;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+
+public class Test1 {
+  @Test
+  public void test() {
+	  System.out.println("Test Method");
+  }
+  @BeforeClass
+  public void beforeClass() {
+	  System.out.println(">>>>>>>Before Class>>>>>>>");
+  }
+  @AfterClass
+  public void afterClass() {
+	  System.out.println(">>>>>>After Class>>>>>>");
+  }
+  @BeforeMethod
+  public void beforeMethod() {
+	  System.out.println(">>>>Before Method>>>>>");
+  }
+
+  @AfterMethod
+  public void afterMethod() {
+	  System.out.println(">>>>>After Method>>>>>>>");
+  }
+
+}
+
+
+
+*****************************************************
+
+right click> run as > testNG Test case
+
+similarly create another file with some methods 
+also execute the same and check
+
+***********************************************
+package com.simplilearn.testng;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterSuite;
+
+public class SimpleTest {
+  @Test
+  public void testMethod() {
+	  System.out.println("Test Method");
+  }
+  @Test
+  public void testMethod2() {
+	  System.out.println("Test Another Method");
+  }
+  @BeforeMethod
+  public void beforeMethod() {
+	  System.out.println("Before Method");
+  }
+
+  @AfterMethod
+  public void afterMethod() {
+	  System.out.println("After Method");
+  }
+
+  @BeforeClass
+  public void beforeClass() {
+	  System.out.println("Before class");
+  }
+
+  @AfterClass
+  public void afterClass() {
+	  System.out.println("After Class");
+  }
+
+  @BeforeTest
+  public void beforeTest() {
+	  System.out.println("Before Test");
+  }
+
+  @AfterTest
+  public void afterTest() {
+	  System.out.println("After Test");
+  }
+
+  @BeforeSuite
+  public void beforeSuite() {
+	  System.out.println("Before Suite");
+  }
+
+  @AfterSuite
+  public void afterSuite() {
+	  System.out.println("After Suite");
+  }
+
+}
+
+**********************************************
+
+---------------------------------------------------
+right click on your project > testNG> convert to testNG
+
+this will generate testng.xml file
+
+right click on that file and run as testNg suite
+
+check the output.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="com.simplilearn.testng.AssertionDemo"/>
+      <class name="com.simplilearn.testng.ChildClassTest"/>
+      <class name="com.simplilearn.testng.ParentClassTest"/>
+      <class name="com.simplilearn.testng.Test1"/>
+      <class name="com.simplilearn.testng.SimpleTest"/>
+      <class name="com.simplilearn.testng.GroupTest"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
