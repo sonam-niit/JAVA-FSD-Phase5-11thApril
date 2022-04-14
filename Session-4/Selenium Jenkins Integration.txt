@@ -1,0 +1,114 @@
+check your JDK version
+
+it should be 8 or 11 to work with Jenkins
+
+if you don't have download that first and install
+
+you can install 2, 3 jdks at the same time without any
+problem
+
+download jenkins.war file from
+jenkins.io/downloads
+
+
+now go to that location where you have stored your .war file
+
+open cmd --> change path to your war file
+
+>java -jar jenkins.war
+
+___________________________________________________
+
+you will get initial password in console
+
+copy that --> open localhost:8080 and paste that password to configure jenkins
+
+install all suggested Plugins and continue
+
+configure username, password, fullName and email Id
+
+then continue
+
+you will be redirected your dashboard screen.
+
+______________________________________________________
+
+click on manage jenkins> manage plugins > click on available> search for maven integration plugin
+
+select plugin check box
+
+and install without restart
+
+(if installtion fail then click on download and install after restrat--> which will download your maven plugin then go to cmd and press ctrl+c and retart jenkins again with java -jar jenkins.war file  then open localhost:8080 and give your username and password then  continue.)
+
+---------------------------------------------------------------------------------
+
+configure JDK and Maven
+-----------------------------------------------------------------------
+click on manage jenkins > Global tool configuration
+
+JDK installation
+
+click on Add JDK
+
+first of all uncheck install automatically checkbox
+
+give name (any name)
+
+JAVA_HOME --> give your JDK path
+
+--------------------------------------------------------------------------
+click on Maven Installation
+
+click on Add Maven
+
+give any name(mymaven)
+
+select your maven version
+
+(to find out your eclipse maven --> window> preferences> maven > installation > check embedded maven version)
+
+apply and save
+
+----------------------------------------------------------------------------------
+
+click on new Item
+
+give name > myJenkSelIntegartion
+
+select mavenProject
+
+OK
+
+give description (anything)
+
+scroll to build
+
+give the location of your project's pom.xml
+
+root pom :  D:\Sonam Data\Java-Phase5-11thApril\TestNG\pom.xml
+
+goals: clean install
+
+apply + save
+
+Build Node
+
+click on the build number and check console output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

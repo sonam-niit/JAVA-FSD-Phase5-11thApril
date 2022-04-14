@@ -1,0 +1,36 @@
+Selenium Grid Set Up
+----------------------------------------------------------------------------
+to execute multiple script parellel in diffrent virtual machines
+
+to set up
+
+download seleninm standalone jar file for perticulat version
+
+keep this jar file at one location so we can easily access the same from cmd
+
+------------------------------------------------------------------------------
+
+let's set up HUB
+
+move to that location where you have store this standalone jar file
+
+execute below command
+
+java -jar selenium-server-standalone-3.5.0.jar -role hub
+
+you can see your hub on localhost:4444/console
+
+to check your hub config details localhost:4444/grid/console
+
+----------------------------------------------------------------------
+let's Set Up a NODE
+
+java -jar selenium-server-standalone-3.5.0.jar -role node -hub http://192.168.0.104:4444/grid/register/
+
+
+
+to set up another node you need to give diffrent port number
+
+java -jar selenium-server-standalone-3.5.0.jar -role node -port 5556 -hub http://192.168.0.104:4444/grid/register/
+
+check console to see node and hub details in selenium grid.

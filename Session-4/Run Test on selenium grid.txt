@@ -1,0 +1,78 @@
+Selenium Grid Set Up
+----------------------------------------------------------------------------
+to execute multiple script parellel in diffrent virtual machines
+
+to set up
+
+download seleninm standalone jar file for perticulat version
+
+keep this jar file at one location so we can easily access the same from cmd
+
+------------------------------------------------------------------------------
+
+let's set up HUB
+
+move to that location where you have store this standalone jar file
+
+execute below command
+
+java -jar selenium-server-standalone-3.5.0.jar -role hub
+
+you can see your hub on localhost:4444/console
+
+to check your hub config details localhost:4444/grid/console
+
+----------------------------------------------------------------------
+let's Set Up a NODE with chrome driver (driver must be at same location where you have jar file)
+
+java -Dwebdriver.chrome.driver="chromedriver.exe" -jar selenium-server-standalone-3.5.0.jar -role node -hub http://192.168.0.104:4444/grid/register/
+
+create JAVA Project
+-----------------------------
+add selenium 3.5.0 jar files in buildpath
+
+add class as mentioned below
+
+package com.simplilearn;
+
+import java.net.URL;
+
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class GoogleTest {
+
+	public static void main(String[] args) {
+		
+		DesiredCapabilities cap= new DesiredCapabilities();
+		cap.setBrowserName("chrome");
+		
+		cap.setPlatform(Platform.WINDOWS);
+		
+		try {
+			//run my test on hub
+			URL url= new URL("http://192.168.0.104:4444/wd/hub");
+			WebDriver driver=new RemoteWebDriver(url,cap);
+			
+			driver.get("https://www.google.co.in/");
+			System.out.println(driver.getTitle());
+			
+			if(driver.getTitle().equals("Google"))
+				System.out.println("Test Passed");
+			else
+				System.out.println("Test Failed");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+
+Save and execute check the node console to see the execution process
+
+you can see output in eclipse console
+
+
