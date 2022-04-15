@@ -1,0 +1,94 @@
+Let's Create Instance
+----------------------------
+
+give name
+
+select API (Amazon Linux)
+
+Instance type: t2.micro
+
+Network: edit 
+
+edit ssh with My IP
+
+add new Security group : select ALL TCP 
+			in source info : 0.0.0.0/0
+
+add new Security Group : select HTTP
+			in source Inf0 : 0.0.0.0/0
+
+Storage: by default volume Size: 8 gb (if you want you can increase)
+
+key Pair: generate a key pair (RSA and .pem)
+
+check Summary
+
+if everything fine then Lanuch Instance.
+-------------------------------------------------------------------------------
+connect with Instance
+
+Way 1: click on instance:  connect : scroll down check : connect : click on that
+
+(some time you can't connect like this)
+
+Way 2:
+
+> open mobaxtem
+
+> strat local terminal
+
+in your D: drive create folder named aws and paste that key value pair which you have downloaded while creating your instance > ex. sonam.pem file
+
+------------------------------------------------
+go to mobaxterm
+
+change the drive
+
+cd D:
+
+cd aws/
+
+ssh -i "sonam.pem" ec2-user@ec2-44-204-13-142.compute-1.amazonaws.com (you will get this command from sshclient of your Instance)
+
+enter
+
+(hear we go: connected)
+
+--------------------------------------------------------------------------------------
+let's install http server create onw html page and run that on our instance
+----------------------------------------------------------------------------------------
+
+change user from ce2 to root
+
+>sudo su -
+
+install httpd server
+
+>sudo yum install httpd -y
+
+move to the folder to create html file
+
+>cd /var/www/html
+
+let's create HTML file
+
+>vi index.html
+
+this will open vi editor to create html code
+
+to insert code in that press i
+
+strat typing
+
+<h1>Welcome to AWS </h1>
+
+press esc
+
+type :wq!  (w to save file, q! to close the editor)
+
+start the server
+
+>sudo service httpd start
+
+go to your instance and copy the public IP address open it in browser
+you can see the output of your html file there.
