@@ -1,0 +1,55 @@
+Create Instance as per the requirements
+
+create volume in the same zone where your instance is available
+
+refresh --> select volume and attach the same to your running instance.
+
+you can opne instance and instorage tab check attached volume details
+---------------------------------------------
+
+mount and unmount some data to volume.
+
+let's connect out instace from mobaxterm.
+
+connect using ssh command
+
+execute below mentione command
+
+>lsblk (see disk details)
+
+check if the volume has any data
+
+>sudo file -s /dev/xvdf
+
+format the disk to ext4 filesystem
+
+>sudo mkfs -t ext4 /dev/xvdf 
+
+Let's create new Directory and mount it to this volume
+
+>sudo mkdir /testdata
+
+>sudo mount /dev/xvdf /testdata check using >lsblk
+
+check the disk space
+
+>df -h .
+
+to unmount
+
+>sudo umount /dev/xvdf
+
+check again >lsblk
+
+
+
+
+
+
+
+
+
+
+
+
+
