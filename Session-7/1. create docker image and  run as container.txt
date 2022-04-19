@@ -1,0 +1,72 @@
+create AWS EC2 instance with ubantu OS
+
+****** launch the instance **********
+
+--> Connect instanse from mobaxterm using SSH client
+
+********** Set up the repository *********
+
+>sudo apt-get update
+
+>sudo apt-get install ca-certificates curl gnupg lsb-release
+
+******* Add official GPG key *******
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+****** set up the stable repository ******
+>echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+*******  install Docker ***********
+>sudo apt-get update
+
+>sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+this command will propmt, do you want to continue, they press y to install docker
+
+******** check docker version & info **********
+
+>sudo docker --version
+
+>sudo docker info
+
+
+ ****** if you want to use the readymade images provided by docker then pull them ******
+
+> sudo docker pull mysql
+> sudo docker pull openjdk
+
+> sudo docker images (see the available images in system)
+
+********* Let's create image of our code which we have created ********
+
+ ------ clone git hub repository which you want to create image ---------
+
+>git clone https://github.com/sonam-niit/docker_master.git
+
+>ls (to see available folders)
+
+>cd docker_master (to move to your code)
+
+*********** let's create a docker image *************
+
+>sudo docker build -t myimage .  (. mandatory)
+
+>sudo docker images (to see myimage created or not)
+
+************ Let's Run this image in a docker container **********
+
+>sudo docker run -d --name mycontainer -p 80:80 myimage
+
+(this command will run myimage code on port no 80 and the container name is mycontainer)
+
+if you are getting some ID in response means container started.
+
+If you want to check application is runnig or not then open your publicIP:80 in browser
+
+also you can execute below command
+
+>curl localhost
+
+******* Check the running container *******
+>sudo docker container ps 
