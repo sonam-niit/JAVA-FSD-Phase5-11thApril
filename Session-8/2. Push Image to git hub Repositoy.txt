@@ -1,0 +1,34 @@
+********** Push Image to Docker Hub*****************
+
+create Account to your docker hub
+hub.docker.com
+
+login to thate account
+_______________________________________________________
+connect with your instance and execute belkow mentioned command to do docker login 
+from your instance (machine)
+
+>sudo docker login
+
+it will ask you to enter username: enter dockerID
+			 password: docker password (just type you can't there)
+
+___________________________________________________________________________
+while login if you are getting any permission denied error then execute below 
+mentioned command 
+	>sudo chmod 666 /var/run/docker.sock
+
+after this try to do docker login again.
+
+------------------------------------------------------------------------------
+create tag for docker image
+
+>sudo docker tag myimage sonamsoni/firstimage
+
+(myimage is my created image name)
+(sonamsoni/firstimage is my repository name)
+
+>sudo docker push sonamsoni/firstimage
+
+Refresh your docker hub account and check your Image pushed to repo.
+

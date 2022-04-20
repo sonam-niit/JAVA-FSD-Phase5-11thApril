@@ -1,0 +1,42 @@
+3. Deploy a docker Container on a docker Swarm
+------------------------------------------------
+
+docker swarm: managing multiple containers running on diffrent host.
+
+Wehere we will intialize a swarm that node will become leader node
+
+other node can join to this node and you can use them as worker node.
+
+set the permission:
+
+>sudo chmod 666 /var/run/docker.sock
+
+Step 1: initialize a docker swarm
+
+	>docker swarm init (machine will become leader node)
+	>docker node ls
+	(see the status of your node)
+
+step 2: create service in this docker swarm
+
+	>docker service create -p 80:80 --name myservice myimage
+
+	you can see the application running on port 80: --> publicIp:80
+
+	>curl localhost:80
+
+	See the running service
+
+	>docker service ls
+
+**********************************************************************************
+Scale a Docker container on a docker swarm
+
+>docker service ls
+>docker service ps myservice (name of your service)
+
+Scale 
+
+>docker service scale myservice=3
+>docker service ls
+>docker service ps myservice

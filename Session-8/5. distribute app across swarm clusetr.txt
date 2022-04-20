@@ -1,0 +1,66 @@
+create 2 instance in your aws ec2.
+
+make one instance as masterNode
+another as worker node
+
+-----------------------------------------------
+install docker in both the instances.
+
+configure /etc/host file to define master and worker IP
+
+>sudo vi /etc/hosts
+
+click after localhost IP
+type below mentione code
+
+masterNodeIP master
+workerNodeIp worker1
+
+press esc
+:wq!
+
+----------------------------------------------------
+execute below command to ping IP
+
+ping master (ping master Ip address stop by ctrl+c)
+ping worker1 (ping worker Ip address stop by ctrl+c)
+
+_______________________________________________________
+
+Let's inititalize swarm cluster
+
+>docker swarm init --advertise-addr 172.31.10.106 (PrivateIP of master node)
+
+your master node will become leader and you must seen one tokwn available that you can use to join from other nodes.
+
+execute that token command from worker node to joiin swarm as a worker
+
+>sudo docker swarm join --token SWMTKN-1-3dztt7ter5i7rdrkjalmuzpo9ji1jok0q6noibxwtixvjerh8h-4nhbfufzobn2e9id2zgbph4wy 172.31.10.106:2377
+
+go to master node cli
+
+and execute below command to check node status
+
+>sudo docker node ls
+
+(you can see master node manegerial status as leader and worker node blank)
+
+create Service with 2 replicas.
+--------------------------------------------------
+
+execute docker login command from both the nodes so you can run the image which is svailable on your docker HUB
+
+_________________________________________________________
+
+
+>sudo docker service create --name clusterservice --publish 8081:8081 --replicas 2 sonamsoni/firstimage
+
+
+>sudo docker service ps clusterservice
+
+check one service is running on workernode and another is runnig on masternode
+
+
+
+
+
