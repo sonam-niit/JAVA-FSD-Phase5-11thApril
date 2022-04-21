@@ -1,0 +1,140 @@
+create AWS EC2 instance with ubantu OS
+
+****** launch the instance **********
+
+--> Connect instanse from mobaxterm using SSH client
+
+>sudo apt-get update && sudo apt-get install ca-certificates curl gnupg lsb-release
+
+>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+>echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+>sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+
+>sudo docker --version
+
+**************Kubernetes Installation ***********************
+Update the apt package index and install packages needed to use the Kubernetes apt repository:
+
+>sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl
+
+*****Download the Google Cloud public signing key******
+
+>sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+*********Add the Kubernetes apt repository**********
+
+>echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+*****install kubelet, kubeadm and kubectl****
+
+>sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl &&
+sudo apt-mark hold kubelet kubeadm kubectl
+
+to check versions
+
+>kubelet --version
+>kubeadm version
+>kubectl version
+
+*************************** initialize kubernetes ************************
+> sudo kubeadm init
+
+if getting config error then execute below steps to resolve
+
+Step 1: Disable Swap
+
+>sudo swapoff -a
+>sudo sed -i ' /swap /s/^/#/' /etc/fstab
+
+Step 2: Adding C Group
+edit docker daemon file
+>sudo vi /etc/docker/daemon.json
+
+press i and insert below mentioned code
+
+{
+        "exec-opts":["native.cgroupdriver=systemd"]
+}
+
+press esc
+type :wq!
+
+once the file updated we need to restart the services
+___________________________________________________________________________________________________
+sudo systemctl daemon-reload && sudo systemctl restart docker && sudo systemctl restart kubelet
+
+check the driver updated or not in daemon file
+
+>sudo docker info | grep -i cgroup
+
+Let's initialize cluseter again
+
+> sudo kubeadm init --ignore-preflight-errors=all
+
+you will get message your Kubernetes initialized successfully
+
+****you will get some command if you want to start cluster as a regular user
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+you can get the node detail by executing follwing command
+
+> kubectl get node
+
+if you want to see the cluster details
+
+>kubectl get svc
+
+Once the cluster is started if you want to deploy your any code you can deploy on it.
+
+let's deploy weave network to cluster
+>export kubever=$(kubectl version | base64 | tr -d '\n')
+>kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+
+Validate the running pods
+
+>kubectl get pods --all-namespaces
+
+****************************************************************************************
+Host a springboot application in kubernetes Pods
+-----------------------------------------------------------
+
+>git clone https://github.com/sonam-niit/springboot-docker.git
+
+let's install Maven
+
+>sudo apt-get update && sudo apt install maven -y
+
+>mvn clean install (create jar file)
+
+*** build image **********
+
+>sudo docker build -t springboot .
+
+>sudo docker images
+
+>kubectl run springbootapp --image=springboot --port=8080
+
+>kubectl get pods
+
+*********** Create Deployment Service ******************88
+
+kubectl expose pod/springbootapp --port=8081 --target-port=8081 --type=LoadBalancer
+
+kubectl get services
+
+kubectl describe svc springbootapp
+
+
+
+
+
+
+
+
+
+
